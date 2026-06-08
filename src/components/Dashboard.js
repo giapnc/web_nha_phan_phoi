@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Package, 
-  Truck, 
-  CheckCircle, 
-  Clock, 
+import {
+  Package,
+  Truck,
+  CheckCircle,
+  Clock,
   TrendingUp,
   AlertCircle,
   Activity,
   Plus
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import distributorService from '../services/apiService';
 import VerificationBanner from './VerificationBanner';
 import './Dashboard.css';
@@ -30,12 +30,12 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        
+
         const response = await distributorService.getDashboardData();
-        
+
         if (response.success) {
           const data = response.data;
-          
+
           setStats({
             pendingInbound: data.pendingInbound || 12,
             activeShipments: data.activeShipments || 8,
@@ -109,7 +109,7 @@ const Dashboard = () => {
     <div className="dashboard">
       {/* Verification Banner */}
       <VerificationBanner />
-      
+
       {/* Welcome Section */}
       <div className="welcome-section">
         <h2>Chào mừng trở lại! 👋</h2>

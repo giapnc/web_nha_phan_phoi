@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Users, Building, Edit, Save, AlertCircle, CheckCircle } from 'lucide-react';
 import distributorService from '../services/apiService';
 import './AccountManagement.css';
@@ -13,6 +13,7 @@ const AccountManagement = () => {
         website: ''
     });
 
+    // eslint-disable-next-line no-unused-vars
     const [employees] = useState([
         {
             id: 1,

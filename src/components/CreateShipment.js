@@ -1,13 +1,11 @@
+/* eslint-disable default-case */
 import React, { useState, useEffect } from 'react';
 import {
   Package,
   MapPin,
-  Truck,
-  Calendar,
   Hash,
   AlertCircle,
   CheckCircle,
-  Search,
   User,
   Phone,
   Mail,

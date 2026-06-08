@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, User, Mail, Lock, Building2, Phone, MapPin, FileText, Wallet, AlertCircle, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, User, Mail, Lock, Building2, Phone, MapPin, FileText, Wallet, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import './RegisterScreen.css';
 
@@ -29,7 +29,7 @@ function RegisterScreen({ onSwitchToLogin }) {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear validation error for this field
     if (validationErrors[name]) {
       setValidationErrors(prev => ({
@@ -37,7 +37,7 @@ function RegisterScreen({ onSwitchToLogin }) {
         [name]: ''
       }));
     }
-    
+
     // Clear general error
     if (error) {
       clearError();
@@ -107,7 +107,7 @@ function RegisterScreen({ onSwitchToLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateStep(2)) {
       return;
     }
@@ -119,7 +119,7 @@ function RegisterScreen({ onSwitchToLogin }) {
     };
 
     const result = await register(registerPayload);
-    
+
     if (!result.success) {
       console.error('Registration failed:', result.error);
     }
@@ -230,7 +230,7 @@ function RegisterScreen({ onSwitchToLogin }) {
 
       {/* Hidden role field - only distributors can register */}
       <input type="hidden" name="role" value="DISTRIBUTOR" />
-      
+
       <div className="form-group">
         <label>Vai trò</label>
         <div className="input-group">
@@ -410,7 +410,7 @@ function RegisterScreen({ onSwitchToLogin }) {
                 Quay lại
               </button>
             )}
-            
+
             {currentStep < 2 ? (
               <button
                 type="button"

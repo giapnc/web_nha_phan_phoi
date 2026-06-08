@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  Home,
   Package,
-  Plus,
   Truck,
   BarChart3,
   Menu,

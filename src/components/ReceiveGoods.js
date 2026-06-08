@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Package, Scan, CheckCircle, AlertCircle, Truck, Info, QrCode } from 'lucide-react';
 import distributorService from '../services/apiService';
 import './ReceiveGoods.css';
@@ -30,6 +30,7 @@ const ReceiveGoods = () => {
 
     useEffect(() => {
         fetchPendingShipments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchPendingShipments = async () => {
