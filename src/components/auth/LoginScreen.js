@@ -1,80 +1,80 @@
-import React, { useState } from 'react';
-import { Eye, EyeOff, User, Lock, Building2, AlertCircle } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import './LoginScreen.css';
+import React, { useState } from "react"
+import { Eye, EyeOff, User, Lock, Building2, AlertCircle } from "lucide-react"
+import { useAuth } from "../../contexts/AuthContext"
+import "./LoginScreen.css"
 
 function LoginScreen({ onSwitchToRegister }) {
-  const { login, loading, error, clearError } = useAuth();
+  const { login, loading, error, clearError } = useAuth()
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [validationErrors, setValidationErrors] = useState({});
+    email: "",
+    password: "",
+  })
+  const [showPassword, setShowPassword] = useState(false)
+  const [validationErrors, setValidationErrors] = useState({})
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = e => {
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
-    }));
-    
+      [name]: value,
+    }))
+
     // Clear validation error for this field
     if (validationErrors[name]) {
       setValidationErrors(prev => ({
         ...prev,
-        [name]: ''
-      }));
+        [name]: "",
+      }))
     }
-    
+
     // Clear general error
     if (error) {
-      clearError();
+      clearError()
     }
-  };
+  }
 
   const validateForm = () => {
-    const errors = {};
+    const errors = {}
 
     if (!formData.email.trim()) {
-      errors.email = 'Email là bắt buộc';
+      errors.email = "Email là bắt buộc"
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Email không đúng định dạng';
+      errors.email = "Email không đúng định dạng"
     }
 
     if (!formData.password) {
-      errors.password = 'Mật khẩu là bắt buộc';
+      errors.password = "Mật khẩu là bắt buộc"
     } else if (formData.password.length < 6) {
-      errors.password = 'Mật khẩu phải có ít nhất 6 ký tự';
+      errors.password = "Mật khẩu phải có ít nhất 6 ký tự"
     }
 
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
+    setValidationErrors(errors)
+    return Object.keys(errors).length === 0
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+  const handleSubmit = async e => {
+    e.preventDefault()
+
     if (!validateForm()) {
-      return;
+      return
     }
 
-    const result = await login(formData.email, formData.password);
-    
+    const result = await login(formData.email, formData.password)
+
     if (!result.success) {
-      console.error('Login failed:', result.error);
+      console.error("Login failed:", result.error)
     }
-  };
+  }
 
   const handleDemoLogin = async () => {
     const demoCredentials = {
-      email: 'distributor@demo.com',
-      password: 'demo123'
-    };
+      email: "distributor@demo.com",
+      password: "demo123",
+    }
 
-    setFormData(demoCredentials);
-    await login(demoCredentials.email, demoCredentials.password);
-  };
+    setFormData(demoCredentials)
+    await login(demoCredentials.email, demoCredentials.password)
+  }
 
   return (
     <div className="login-screen">
@@ -94,11 +94,16 @@ function LoginScreen({ onSwitchToRegister }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form
+          onSubmit={handleSubmit}
+          className="login-form">
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <div className="input-group">
-              <User className="input-icon" size={20} />
+              <User
+                className="input-icon"
+                size={20}
+              />
               <input
                 type="email"
                 id="email"
@@ -106,7 +111,7 @@ function LoginScreen({ onSwitchToRegister }) {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="Nhập email của bạn"
-                className={validationErrors.email ? 'error' : ''}
+                className={validationErrors.email ? "error" : ""}
                 disabled={loading}
               />
             </div>
@@ -118,23 +123,25 @@ function LoginScreen({ onSwitchToRegister }) {
           <div className="form-group">
             <label htmlFor="password">Mật khẩu</label>
             <div className="input-group">
-              <Lock className="input-icon" size={20} />
+              <Lock
+                className="input-icon"
+                size={20}
+              />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="Nhập mật khẩu"
-                className={validationErrors.password ? 'error' : ''}
+                className={validationErrors.password ? "error" : ""}
                 disabled={loading}
               />
               <button
                 type="button"
                 className="password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
-                disabled={loading}
-              >
+                disabled={loading}>
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
@@ -146,9 +153,8 @@ function LoginScreen({ onSwitchToRegister }) {
           <button
             type="submit"
             className="login-button"
-            disabled={loading}
-          >
-            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+            disabled={loading}>
+            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
           </button>
         </form>
 
@@ -159,30 +165,27 @@ function LoginScreen({ onSwitchToRegister }) {
               type="button"
               className="demo-button distributor"
               onClick={handleDemoLogin}
-              disabled={loading}
-            >
+              disabled={loading}>
               Demo Nhà Phân Phối
             </button>
           </div>
         </div>
 
-        <div className="login-footer">
+        {/* <div className="login-footer">
           <p>
-            Chưa có tài khoản?{' '}
+            Chưa có tài khoản?{" "}
             <button
               type="button"
               className="link-button"
               onClick={onSwitchToRegister}
-              disabled={loading}
-            >
+              disabled={loading}>
               Đăng ký ngay
             </button>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default LoginScreen;
-
+export default LoginScreen
