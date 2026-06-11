@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 import { distributorService } from "../services/apiService"
 import "./ExportManagement.css"
+import { toast } from "react-toastify"
 
 const ExportManagement = () => {
   const [shipments, setShipments] = useState([])
@@ -245,7 +246,12 @@ const ExportManagement = () => {
                         onClick={() =>
                           navigator.clipboard
                             .writeText(shipment.shipmentCode)
-                            .then(() => alert("Copy thành công"))
+                            .then(() =>
+                              toast.success(
+                                "Copy thành công! Mã đơn: " +
+                                  shipment.shipmentCode,
+                              ),
+                            )
                         }>
                         {shipment.shipmentCode}
                       </span>
@@ -264,7 +270,7 @@ const ExportManagement = () => {
                             const batchNumber = shipment.drugBatch?.batchNumber
                             if (batchNumber) {
                               navigator.clipboard.writeText(String(batchNumber))
-                              alert(
+                              toast.success(
                                 "Đã copy Số lô: " +
                                   batchNumber +
                                   "\n\nSố lô này dùng để truy vết thuốc từ đầu đến cuối.",

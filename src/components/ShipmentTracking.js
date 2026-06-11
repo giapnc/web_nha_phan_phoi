@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import distributorService from "../services/apiService"
 import "./ShipmentTracking.css"
+import { toast } from "react-toastify"
 
 const ShipmentTracking = () => {
   const [shipments, setShipments] = useState([])
@@ -249,7 +250,9 @@ const ShipmentTracking = () => {
 
                 <div className="shipment-content">
                   <div className="drug-info">
-                    <h4 style={{ padding: "6px 0" }}>{shipment.drugBatch?.drugName || "N/A"}</h4>
+                    <h4 style={{ padding: "6px 0" }}>
+                      {shipment.drugBatch?.drugName || "N/A"}
+                    </h4>
                     <p
                       className="batch-number-main"
                       style={{
@@ -265,7 +268,7 @@ const ShipmentTracking = () => {
                         const batchNumber = shipment.drugBatch?.batchNumber
                         if (batchNumber) {
                           navigator.clipboard.writeText(String(batchNumber))
-                          alert(
+                          toast.success(
                             "✅ Đã copy Số lô: " +
                               batchNumber +
                               "\n\n📋 Mã này được dùng xuyên suốt từ NSX → NPP → Hiệu thuốc.",
@@ -295,7 +298,13 @@ const ShipmentTracking = () => {
                       }}>
                       Blockchain ID: {shipment.drugBatch?.batchId || "N/A"}
                     </p>
-                    <p style={{ display: "flex", justifyContent: "space-between", alignItems: "center" , marginBottom: "8px"}}>
+                    <p
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: "8px",
+                      }}>
                       Số lượng:
                       <span>
                         {shipment.quantity?.toLocaleString() || "N/A"}
@@ -306,14 +315,13 @@ const ShipmentTracking = () => {
                   <div className="shipment-details">
                     <div className="detail-item">
                       <span>
-                        <MapPin size={14} />  Từ:
+                        <MapPin size={14} /> Từ:
                       </span>
                       {shipment.fromAddress || "N/A"}
                     </div>
                     <div className="detail-item">
                       <span>
-                        <Clock size={14} /> {" "}
-                        Ngày tạo:
+                        <Clock size={14} /> Ngày tạo:
                       </span>
                       {formatDate(shipment.shipmentTimestamp)}
                     </div>
@@ -405,7 +413,7 @@ const ShipmentTracking = () => {
                           selectedShipment.drugBatch?.batchNumber
                         if (batchNumber) {
                           navigator.clipboard.writeText(String(batchNumber))
-                          alert("✅ Đã copy Số lô: " + batchNumber)
+                          toast.success("✅ Đã copy Số lô: " + batchNumber)
                         }
                       }}>
                       📋 Copy
